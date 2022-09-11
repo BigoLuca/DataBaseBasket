@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+    <EntitySetMapping Name="ALLENAMENTO">
+      <EntityTypeMapping TypeName="DatabaseModel.ALLENAMENTO">
+        <MappingFragment StoreEntitySet="ALLENAMENTO">
+          <ScalarProperty Name="IdSquadra" ColumnName="IdSquadra" />
+          <ScalarProperty Name="Giorno" ColumnName="Giorno" />
+          <ScalarProperty Name="Ora" ColumnName="Ora" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALLENATORE">
+      <EntityTypeMapping TypeName="DatabaseModel.ALLENATORE">
+        <MappingFragment StoreEntitySet="ALLENATORE">
+          <ScalarProperty Name="IdAllenatore" ColumnName="IdAllenatore" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+          <ScalarProperty Name="CodiceFiscale" ColumnName="CodiceFiscale" />
+          <ScalarProperty Name="Età" ColumnName="Età" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ATTREZZATURA">
+      <EntityTypeMapping TypeName="DatabaseModel.ATTREZZATURA">
+        <MappingFragment StoreEntitySet="ATTREZZATURA">
+          <ScalarProperty Name="IdAttrezzatura" ColumnName="IdAttrezzatura" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAMPIONANTO">
+      <EntityTypeMapping TypeName="DatabaseModel.CAMPIONANTO">
+        <MappingFragment StoreEntitySet="CAMPIONANTO">
+          <ScalarProperty Name="Livello" ColumnName="Livello" />
+          <ScalarProperty Name="EtaMax" ColumnName="EtaMax" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CAMPO_ESTIVO">
+      <EntityTypeMapping TypeName="DatabaseModel.CAMPO_ESTIVO">
+        <MappingFragment StoreEntitySet="CAMPO ESTIVO">
+          <ScalarProperty Name="IdCampoEstivo" ColumnName="IdCampoEstivo" />
+          <ScalarProperty Name="Anno" ColumnName="Anno" />
+          <ScalarProperty Name="Settimana" ColumnName="Settimana" />
+          <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GIOCATORE">
+      <EntityTypeMapping TypeName="DatabaseModel.GIOCATORE">
+        <MappingFragment StoreEntitySet="GIOCATORE">
+          <ScalarProperty Name="IdGiocatore" ColumnName="IdGiocatore" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+          <ScalarProperty Name="Età" ColumnName="Età" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="E_mail" ColumnName="E-mail" />
+          <ScalarProperty Name="NumeroMaglia" ColumnName="NumeroMaglia" />
+          <ScalarProperty Name="CodiceFiscale" ColumnName="CodiceFiscale" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MATERIALE">
+      <EntityTypeMapping TypeName="DatabaseModel.MATERIALE">
+        <MappingFragment StoreEntitySet="MATERIALE">
+          <ScalarProperty Name="idMateriale" ColumnName="idMateriale" />
+          <ScalarProperty Name="descrizione" ColumnName="descrizione" />
+          <ScalarProperty Name="disponibilità" ColumnName="disponibilità" />
+          <ScalarProperty Name="prezzo" ColumnName="prezzo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PALESTRA">
+      <EntityTypeMapping TypeName="DatabaseModel.PALESTRA">
+        <MappingFragment StoreEntitySet="PALESTRA">
+          <ScalarProperty Name="IdPalestra" ColumnName="IdPalestra" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Indirizzo" ColumnName="Indirizzo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PARTITA">
+      <EntityTypeMapping TypeName="DatabaseModel.PARTITA">
+        <MappingFragment StoreEntitySet="PARTITA">
+          <ScalarProperty Name="IdPartita" ColumnName="IdPartita" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="Ora" ColumnName="Ora" />
+          <ScalarProperty Name="Avversiario" ColumnName="Avversiario" />
+          <ScalarProperty Name="PuntiFatti" ColumnName="PuntiFatti" />
+          <ScalarProperty Name="PuntiSubiti" ColumnName="PuntiSubiti" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="QUOTA">
+      <EntityTypeMapping TypeName="DatabaseModel.QUOTA">
+        <MappingFragment StoreEntitySet="QUOTA">
+          <ScalarProperty Name="IdQuota" ColumnName="IdQuota" />
+          <ScalarProperty Name="anno" ColumnName="anno" />
+          <ScalarProperty Name="costo" ColumnName="costo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SCONTRINO">
+      <EntityTypeMapping TypeName="DatabaseModel.SCONTRINO">
+        <MappingFragment StoreEntitySet="SCONTRINO">
+          <ScalarProperty Name="IdScontrino" ColumnName="IdScontrino" />
+          <ScalarProperty Name="data" ColumnName="data" />
+          <ScalarProperty Name="ora" ColumnName="ora" />
+          <ScalarProperty Name="valore" ColumnName="valore" />
+          <ScalarProperty Name="sconto" ColumnName="sconto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SQUADRA">
+      <EntityTypeMapping TypeName="DatabaseModel.SQUADRA">
+        <MappingFragment StoreEntitySet="SQUADRA">
+          <ScalarProperty Name="IdSquadra" ColumnName="IdSquadra" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Annata" ColumnName="Annata" />
+          <ScalarProperty Name="NumeroGiocatori" ColumnName="NumeroGiocatori" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STATISTICA_GIOCATORE">
+      <EntityTypeMapping TypeName="DatabaseModel.STATISTICA_GIOCATORE">
+        <MappingFragment StoreEntitySet="STATISTICA GIOCATORE">
+          <ScalarProperty Name="IdPartita" ColumnName="IdPartita" />
+          <ScalarProperty Name="IdGiocatore" ColumnName="IdGiocatore" />
+          <ScalarProperty Name="Tiri_liberi" ColumnName="Tiri liberi" />
+          <ScalarProperty Name="Due_punti" ColumnName="Due punti" />
+          <ScalarProperty Name="Tre_punti" ColumnName="Tre punti" />
+          <ScalarProperty Name="Falli" ColumnName="Falli" />
+          <ScalarProperty Name="Rimbalzi" ColumnName="Rimbalzi" />
+          <ScalarProperty Name="Palle_recuperate" ColumnName="Palle recuperate" />
+          <ScalarProperty Name="Palle_perse" ColumnName="Palle perse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

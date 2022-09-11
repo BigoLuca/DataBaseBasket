@@ -3,15 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WPF"
+        xmlns:local="clr-namespace:WPF" 
+        xmlns:view="clr-namespace:WPF.VIEW"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Window.Resources>
-        <local:DatabaseDataSet x:Key="databaseDataSet"/>
-        <CollectionViewSource x:Key="gIOCATOREViewSource" Source="{Binding GIOCATORE, Source={StaticResource databaseDataSet}}"/>
-    </Window.Resources>
-    <Grid DataContext="{StaticResource gIOCATOREViewSource}">
-        <DataGrid Margin="84,58,195,108" ItemsSource="{Binding}"/>
-
-    </Grid>
+        Title="MainWindow" Height="450" Width="800">
+    <TabControl>
+        <TabItem Header="PERSONE">
+            <view:PersoneUI/>
+        </TabItem>
+        
+        <TabItem Header="TabItem">
+            
+        </TabItem>
+        
+    </TabControl>
 </Window>

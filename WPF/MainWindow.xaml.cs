@@ -9,8 +9,8 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPF
@@ -23,17 +23,6 @@ namespace WPF
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            WPF.DatabaseDataSet databaseDataSet = ((WPF.DatabaseDataSet)(this.FindResource("databaseDataSet")));
-            // Carica i dati nella tabella GIOCATORE. Se necessario, è possibile modificare questo codice.
-            WPF.DatabaseDataSetTableAdapters.GIOCATORETableAdapter databaseDataSetGIOCATORETableAdapter = new WPF.DatabaseDataSetTableAdapters.GIOCATORETableAdapter();
-            databaseDataSetGIOCATORETableAdapter.Fill(databaseDataSet.GIOCATORE);
-            System.Windows.Data.CollectionViewSource gIOCATOREViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("gIOCATOREViewSource")));
-            gIOCATOREViewSource.View.MoveCurrentToFirst();
         }
     }
 }

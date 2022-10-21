@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="95b6f85cecbf45d6b2b7348c997b44bb" Name="Diagram1">
+        <EntityTypeShape EntityType="DatabaseModel.ALLENAMENTO" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ALLENATORE" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.ATTREZZATURA" Width="1.5" PointX="1.5" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.CAMPO_ESTIVO" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.GIOCATORE" Width="1.5" PointX="0.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.MATERIALE" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.PALESTRA" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.PARTITA" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.QUOTA" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.SCONTRINO" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.SQUADRA" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DatabaseModel.STATISTICA_GIOCATORE" Width="1.5" PointX="8.5" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="DatabaseModel.FK_effettuato" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_pratica" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_gestisce" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_organizza" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_dispone" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_partecipa" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_svolto" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_acquista" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_appartiene" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_paga" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_possiede" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_registra" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_conta" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_gioca" ManuallyRouted="false" />
+        <AssociationConnector Association="DatabaseModel.FK_fattura" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

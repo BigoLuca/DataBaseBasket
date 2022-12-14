@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Wed Dec 14 17:55:56 2022 
+-- * Generation date: Wed Dec 14 18:13:22 2022 
 -- * LUN file: C:\Users\tella_tasat48\Workspace\DataBaseBasket\ER\ER.lun 
 -- * Schema: Basket Imola/3-Logico 
 -- ********************************************* 
@@ -63,7 +63,7 @@ create table GIOCATORE (
      CF char(64) not null,
      nome char(64) not null,
      cognome char(128) not null,
-     data nascita date not null,
+     data_nascita date not null,
      telefono numeric(32) not null,
      email char(128) not null,
      idSquadra numeric(32) not null,

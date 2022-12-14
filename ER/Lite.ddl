@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Wed Dec 14 17:49:40 2022 
+-- * Generation date: Wed Dec 14 17:55:56 2022 
 -- * LUN file: C:\Users\tella_tasat48\Workspace\DataBaseBasket\ER\ER.lun 
 -- * Schema: Basket Imola/3-Logico 
 -- ********************************************* 
@@ -93,7 +93,9 @@ create table PARTITA (
      avversario char(128) not null,
      punti_fatti numeric(32) not null,
      punti_subiti numeric(32) not null,
-     campionato -- Compound attribute -- not null,
+     campionato_livello char(32) not null,
+     campionato_nome char(64) not null,
+     campionato_anno numeric(32) not null,
      idSquadra numeric(32) not null,
      constraint IDPARTITA primary key (idPartita),
      foreign key (idSquadra) references SQUADRA);

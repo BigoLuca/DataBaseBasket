@@ -3,7 +3,7 @@
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
 -- * Generator date: Sep 14 2021              
--- * Generation date: Wed Dec 14 17:42:08 2022 
+-- * Generation date: Wed Dec 14 17:49:40 2022 
 -- * LUN file: C:\Users\tella_tasat48\Workspace\DataBaseBasket\ER\ER.lun 
 -- * Schema: Basket Imola/3-Logico 
 -- ********************************************* 
@@ -52,7 +52,7 @@ create table CAMPO_ESTIVO (
      idPalestra numeric(32),
      idAllenatore numeric(32) not null,
      idGiocatore numeric(32),
-     constraint IDCAMPO ESTIVO primary key (idCampoEstivo),
+     constraint IDCAMPO_ESTIVO primary key (idCampoEstivo),
      foreign key (idPalestra) references PALESTRA,
      foreign key (idAllenatore) references ALLENATORE,
      foreign key (idGiocatore) references GIOCATORE);
@@ -91,8 +91,8 @@ create table PARTITA (
      data date not null,
      ora numeric(32) not null,
      avversario char(128) not null,
-     punti fatti numeric(32) not null,
-     punti subiti numeric(32) not null,
+     punti_fatti numeric(32) not null,
+     punti_subiti numeric(32) not null,
      campionato -- Compound attribute -- not null,
      idSquadra numeric(32) not null,
      constraint IDPARTITA primary key (idPartita),
@@ -118,16 +118,16 @@ create table SQUADRA (
 
 create table STATISTICA_GIOCATORE (
      idStatistica numeric(32) not null,
-     tiri liberi numeric(16) not null,
-     2 punti numeric(16) not null,
-     3 punti numeric(16) not null,
+     tiri_liberi numeric(16) not null,
+     due_punti numeric(16) not null,
+     tre_punti numeric(16) not null,
      falli char(1) not null,
      rimbalzi numeric(16) not null,
-     palle recuperate numeric(16) not null,
-     palle perse numeric(16) not null,
+     palle_recuperate numeric(16) not null,
+     palle_perse numeric(16) not null,
      idPartita numeric(32) not null,
      idGiocatore numeric(32) not null,
-     constraint IDSTATISTICA GIOCATORE primary key (idStatistica),
+     constraint IDSTATISTICA_GIOCATORE primary key (idStatistica),
      foreign key (idPartita) references PARTITA,
      foreign key (idGiocatore) references GIOCATORE);
 

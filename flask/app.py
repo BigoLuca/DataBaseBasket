@@ -20,10 +20,10 @@ def close_connection(exception):
 def hello_world():
     return "<p>Hello, World!</p>"
 
-@app.route("/table/giocatore")
+@app.route("/view-table/giocatore")
 def get_table_giocatore():
     db_cursor = get_db().cursor()
-    res = db_cursor.execute('select * from giocatore')
-    one = res.fetchone()
-    print(one)
-    return render_template('tables/giocatore.html', sedia=[one])
+    cols = db_cursor.execute('pragma table_info(giocatore)').fetchall()
+    cols = [ c[1] for c in cols ]
+    res = db_cursor.execute('select * from giocatore').fetchall()
+    return render_template('view-table.html', cols=cols, rows=res)

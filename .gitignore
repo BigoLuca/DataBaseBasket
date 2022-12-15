@@ -55,3 +55,6 @@ dkms.conf
 */.DS_Store
 __pycache__/
 */*__pycache__/
+
+# Ugo's venv
+flask/db-basket-venv/

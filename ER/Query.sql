@@ -7,16 +7,14 @@ INSERT INTO GIOCATORE (CF, nome, cognome, eta, telefono, email, nMaglia)
 VALUES (?, ?, ?, ?, ?, ?,?);
 INSERT INTO appartiene (idGiocatore, idSquadra)
 VALUES (?, ?);
-UPDATE SQUADRA
-SET nGiocatori = nGiocatori + 1;
 
 -- OP3 Visualizzare il numero totale di persone della società
 SELECT COUNT(*) AS persone
 FROM ALLENATORE, GIOCATORE;
 
 -- OP4 Creare una squadra
-INSERT INTO SQUADRA (idSquadra, nome, annata, nGiocatori)
-VALUES (?, ?, ?, ?);
+INSERT INTO SQUADRA (nome, annata, nGiocatori)
+VALUES (?, ?, ?);
 
 -- OP5 Modificare annata di una squadra
 UPDATE SQUADRA
@@ -25,10 +23,7 @@ SET annata = ?;
 
 -- OP6 Rimuovere un giocatore da una squadra
 DELETE FROM appartiene
-WHERE GIOCATORE.idGiocatore = ?;
-UPDATE SQUADRA
-SET nGiocatori = nGiocatori - 1
-WHERE SQUADRA.idSquadra = ?;
+WHERE GIOCATORE.id = ?;
 
 -- OP7 Assegnare un allenatore ad una squadra
 INSERT INTO gestisce (idAllenatore, idSquadra)
@@ -53,9 +48,9 @@ FROM partecipa P
 WHERE P.idCampoEstivo = ?;
 
 -- OP12 Visualizzare le attrezzature di una palestra
-SELECT ATTREZZATURE, dispone.quantita
-FROM dispone D
-WHERE D.idPalestra = ?;
+SELECT ATTREZZATURA
+FROM ATTREZZATURA A
+WHERE A.idPalestra = ?;
 
 -- OP13 Visualizzare le partite di una squadra
 SELECT PARTITA
@@ -106,10 +101,9 @@ SELECT SUM(Q.costo) AS Quote, (	SELECT SUM(V.costo_totale)
 FROM QUOTA Q
 WHERE QUOTA.idGiocatore = (	SELECT GIOCATORE.idGipocatore
 							FROM GIOCATORE
-							WHERE GIOCATORE.idSede = ?)
-AND Q.anno = ?;
+							WHERE GIOCATORE.idSede = ?) AND Q.anno = ?;
 
 
 -- OP-20 Visualizzare numero di giocatori in ogni squadra
-SELECT SQUARA, COUNT(SQUADRA.nGiocatori) AS Giocatori
+SELECT SQUARA, COUNT(GIOCATORE) AS Giocatori
 GROUP BY SQUADRA.idSquadra;

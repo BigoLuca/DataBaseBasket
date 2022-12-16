@@ -1,3 +1,3 @@
 # run seeders in order
-.read seeder_giocatore.sql
-.read seeder_allenatore.sql
+.read 'seeders/seeder_giocatore.sql'
+.read 'seeders/seeder_allenatore.sql'

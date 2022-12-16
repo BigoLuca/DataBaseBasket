@@ -30,6 +30,7 @@
 				{% for val in r %}
 					<td>{{ val }}</td>
 				{% endfor %}
+					<td><a href="/edit?table={{ table }}&id={{ r[0] }}">Modifica</a></td>
 			</tr>
 		{% endfor %}
 	</tbody>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		html {
+			font-family: monospace;
+			font-size: 14px;
+		}
+		table, td, th {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 4px;
+		}
+	</style>
+</head>
+<body>
+	<p>Tabella: {{ table }}</p>
+	<p>Modifica record: {{ record }}</p>
+	<form action="/edit" method="post">
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				{% for c in cols %}
+					<th>{{ c }}</th>
+				{% endfor %}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="background: rgb(191, 223, 206);">Valore attuale</td>
+				{% for r in record %}
+					<td>{{ r }}</td>
+				{% endfor %}
+			</tr>
+			<tr>
+				<td style="background: yellow;">Modifica</td>
+				{% for r in record %}
+					<td><input type="text" placeholder="{{ r }}" value="{{ r }}"></td>
+				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+	<input style="margin: 16px; background: white; border: 1px solid black; padding: 6px 12px; border-radius: 2px; font-family: monospace;" type="submit" value="Salva">
+	<input style="margin: 16px; background: white;" type="reset" value="Reset">
+	<a style="margin: 16px" href="/">Annulla</a>
+	</form>
+</body>
+</html>

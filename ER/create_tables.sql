@@ -16,11 +16,17 @@
 -- Tables Section
 -- _____________ 
 
+create table SEDE (
+     idSede integer not null,
+     nome char(64),
+     citta char(64),
+     constraint IDSEDE primary key (idSede));
+
 create table ALLENAMENTO (
      idAllenamento integer not null,
      giorno char(32) not null,
      ora integer not null,
-     durata numeric(10,3) not null,
+     durata integer not null,
      idSquadra integer not null,
      idPalestra integer not null,
      constraint IDALLENAMENTO primary key (idAllenamento),
@@ -35,7 +41,9 @@ create table ALLENATORE (
      data nascita date not null,
      telefono integer not null,
      email char(128) not null,
-     constraint IDALLENATORE primary key (idAllenatore));
+     idSede integer not null,
+     constraint IDALLENATORE primary key (idAllenatore)
+     foreign key (idSede) references SEDE);
 
 create table ATTREZZATURA (
      idAttrezzatura integer not null,
@@ -62,17 +70,16 @@ create table GIOCATORE (
      data_nascita date not null,
      telefono integer not null,
      email char(128) not null,
-     constraint IDGIOCATORE primary key (idGiocatore));
+     idSede integer not null,
+     constraint IDGIOCATORE primary key (idGiocatore)
+     foreign key (idSede) references SEDE);
 
 create table MATERIALE (
      idMateriale integer not null,
-     idGiocatore integer,
      descrizione char(256) not null,
      disponibilità integer not null,
      prezzo integer not null,
-     idAllenatore integer not null,
-     constraint IDMATERIALE primary key (idMateriale),
-     foreign key (idGiocatore) references GIOCATORE);
+     constraint IDMATERIALE primary key (idMateriale));
 
 create table PALESTRA (
      idPalestra integer not null,
@@ -106,8 +113,6 @@ create table SQUADRA (
      idSquadra integer not null,
      nome char(32) not null,
      annata integer not null,
-     nGiocatori integer not null default 0,
-     idAllenatore integer not null,
      constraint IDSQUADRA primary key (idSquadra));
 
 create table STATISTICA_GIOCATORE (
@@ -125,16 +130,27 @@ create table STATISTICA_GIOCATORE (
      foreign key (idPartita) references PARTITA,
      foreign key (idGiocatore) references GIOCATORE);
 
+create table VENDITA (
+     idVendita integer not null,
+     data date not null,
+     costo_totale integer not null,
+     quantita integer not null,
+     idMateriale integer not null,
+     idSede integer not null,
+     constraint IDSEDE primary key (idVendita);
+     foreign key (idMateriale) references MATERIALE,
+     foreign key (idSede) references SEDE);
+
 
 create table appartiene (
      idRel integer primary key not null,
-     idAllenatore integer not null,
+     idSquadra integer not null,
      idGiocatore integer not null);
 
 create table gestisce (
      idRel integer primary key not null,
      idAllenatore integer not null,
-     idGiocatore integer not null);
+     idSquadra integer not null);
 
 create table partecipa (
      idRel integer primary key not null,

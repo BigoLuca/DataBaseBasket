@@ -20,6 +20,7 @@ VALUES (?, ?, ?, ?);
 
 -- OP5 Modificare annata di una squadra
 UPDATE SQUADRA
+WHERE ID = ?
 SET annata = ?;
 
 -- OP6 Rimuovere un giocatore da una squadra

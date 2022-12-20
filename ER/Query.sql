@@ -9,8 +9,9 @@ INSERT INTO appartiene (idGiocatore, idSquadra)
 VALUES (?, ?);
 
 -- OP3 Visualizzare il numero totale di persone della società
-SELECT COUNT(*) AS persone
-FROM ALLENATORE, GIOCATORE;
+SELECT 
+(SELECT COUNT(*) FROM ALLENATORE) + 
+(SELECT COUNT(*) FROM GIOCATORE);
 
 -- OP4 Creare una squadra
 INSERT INTO SQUADRA (nome, annata, nGiocatori)

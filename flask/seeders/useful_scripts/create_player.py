@@ -56,12 +56,16 @@ def create_player():
 
 	telefono = str(random.randint(1000000, 10000000))
 	email = quote(f'{nome[1:-1]}@{cognome[1:-1]}.com')
-	return (nMaglia, cf, nome, cognome, data_nascita, telefono, email)
+	idSede = str(1)
+	return (nMaglia, cf, nome, cognome, data_nascita, telefono, email, idSede)
 
 def insert_player():
 	p = create_player()
-	i = f"insert into giocatore (nMaglia, CF, nome, cognome, 'data_nascita', telefono, email) values ({ ', '.join(p) })"
+	i = f"insert into giocatore (nMaglia, CF, nome, cognome, 'data_nascita', telefono, email, idSede) values ({ ', '.join(p) })"
 	return i
+
+def insert_sede():
+	return f"insert into sede (nome, citta) values ('sede principale', 'imola');"
 
 def create_allenatore():	
 	cf = quote(create_cf())
@@ -80,11 +84,12 @@ def create_allenatore():
 
 	telefono = str(random.randint(1000000, 10000000))
 	email = quote(f'{nome[1:-1]}@{cognome[1:-1]}.com')
-	return (cf, nome, cognome, data_nascita, telefono, email)
+	idSede = str(1)
+	return (cf, nome, cognome, data_nascita, telefono, email, idSede)
 
 def insert_allenatore():
 	p = create_allenatore()
-	i = f"insert into giocatore (CF, nome, cognome, data, telefono, email) values ({ ', '.join(p) })"
+	i = f"insert into allenatore (CF, nome, cognome, data, telefono, email, idSede) values ({ ', '.join(p) })"
 	return i
 
 

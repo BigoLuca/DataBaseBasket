@@ -24,9 +24,9 @@ create table SEDE (
 
 create table ALLENAMENTO (
      id integer not null,
-     giorno char(32) not null,
-     ora integer not null,
-     durata integer not null,
+     giorno_settimanale char(32) not null,
+     ora_inizio integer not null,
+     ora_fine integer not null,
      idSquadra integer not null,
      idPalestra integer not null,
      constraint ID primary key (id),
@@ -38,11 +38,11 @@ create table ALLENATORE (
      CF char(32) not null,
      nome char(32) not null,
      cognome char(64) not null,
-     data nascita date not null,
+     data_nascita date not null,
      telefono integer not null,
      email char(128) not null,
      idSede integer not null,
-     constraint ID primary key (id)
+     constraint ID primary key (id),
      foreign key (idSede) references SEDE);
 
 create table ATTREZZATURA (
@@ -106,6 +106,7 @@ create table QUOTA (
      id integer not null,
      anno integer not null,
      costo integer not null,
+     idGiocatore integer not null,
      constraint ID primary key (id),
      foreign key (idGiocatore) references GIOCATORE);
 
@@ -137,7 +138,7 @@ create table VENDITA (
      quantita integer not null,
      idMateriale integer not null,
      idSede integer not null,
-     constraint ID primary key (id);
+     constraint ID primary key (id),
      foreign key (idMateriale) references MATERIALE,
      foreign key (idSede) references SEDE);
 

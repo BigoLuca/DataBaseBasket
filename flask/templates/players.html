@@ -7,20 +7,26 @@
 	<style>
 		html {
 			font-family: monospace;
+			font-size: 16px;
 		}
 		table, td, th {
 			border: 1px solid black;
 			border-collapse: collapse;
 			padding: 4px;
 		}
+		ul li {
+			list-style-type: "-";
+			padding: 4px 8px;
+		}
 	</style>
 </head>
 <body>
-<h1>{{ page_title }}</h1>
-{% if show_branch_selector %}
+	{% if sede is not None %}
+		<h1>{{ sede }}</h1>
+	{% else %}
+		<h1>Basket Imola International</h1>
+	{% endif %}
 	{% include 'branch-selector.html' %}
-{% endif %}
-<table>
 	<thead>
 		<tr>
 			{% for c in cols %}
@@ -38,6 +44,5 @@
 			</tr>
 		{% endfor %}
 	</tbody>
-</table>
 </body>
 </html>

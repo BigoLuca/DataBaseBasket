@@ -1,0 +1,6 @@
+<label for="team-selector">Seleziona una squadra</label>
+<select name="teams" id="team-selector">
+	{% for t in teams %}
+		<option value="{{ t }}">{{ t }}</option>
+	{% endfor %}
+</select>

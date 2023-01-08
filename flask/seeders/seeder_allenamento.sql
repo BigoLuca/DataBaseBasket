@@ -1,0 +1,1 @@
+insert into allenamento (giorno, ora_inizio, ora_fine, idSquadra, idPalestra) values (date('2022-12-20'), time('14:30:00'), time('17:30:00'), 1, 3)

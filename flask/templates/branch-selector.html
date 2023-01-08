@@ -1,0 +1,11 @@
+<form method="GET">
+<label for="branch-selector">Seleziona una sede</label>
+<select style="margin-top: 8px; margin-bottom: 8px;" name="sede" id="branch-selector">
+	<option value="">-- Scegli una sede --</option>
+	<option value="">Tutte le sedi</option>
+	{% for id, nome in branches %}
+		<option value="{{ id }}">{{ nome }}</option>
+	{% endfor %}
+</select>
+<button type="submit">Seleziona</button>
+</form>

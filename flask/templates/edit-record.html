@@ -17,14 +17,13 @@
 	</style>
 </head>
 <body>
-	<p>Tabella: {{ table }}</p>
-	<p>Modifica record: {{ record }}</p>
-	<form action="/edit" method="post">
+	<h1>Tabella: {{ table }}</h1>
+	<form method="POST">
 	<table>
 		<thead>
 			<tr>
 				<th></th>
-				{% for c in cols %}
+				{% for c in cols[1:] %}
 					<th>{{ c }}</th>
 				{% endfor %}
 			</tr>
@@ -32,21 +31,21 @@
 		<tbody>
 			<tr>
 				<td style="background: rgb(191, 223, 206);">Valore attuale</td>
-				{% for r in record %}
+				{% for r in record[1:] %}
 					<td>{{ r }}</td>
 				{% endfor %}
 			</tr>
 			<tr>
 				<td style="background: yellow;">Modifica</td>
-				{% for r in record %}
-					<td><input type="text" placeholder="{{ r }}" value="{{ r }}"></td>
+				{% for c, r in zip %}
+					<td><input type="text" name="{{ c }}" id="{{ c }}" placeholder="{{ r }}" value="{{ r }}"></td>
 				{% endfor %}
 			</tr>
 		</tbody>
 	</table>
 	<input style="margin: 16px; background: white; border: 1px solid black; padding: 6px 12px; border-radius: 2px; font-family: monospace;" type="submit" value="Salva">
-	<input style="margin: 16px; background: white;" type="reset" value="Reset">
-	<a style="margin: 16px" href="/">Annulla</a>
+	<input style="margin: 16px; background: white; border: 1px solid black; padding: 6px 12px; border-radius: 2px; font-family: monospace;" type="reset" value="Reset">
+	<a style="margin: 16px; background: white; border: 1px solid black; padding: 6px 12px; border-radius: 2px; font-family: monospace; color:black; text-decoration: none;" href="/">Annulla</a>
 	</form>
 </body>
 </html>

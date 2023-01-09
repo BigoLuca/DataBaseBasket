@@ -1,4 +1,4 @@
--- *********************************************
++-- *********************************************
 -- * SQL SQLite generation                     
 -- *--------------------------------------------
 -- * DB-MAIN version: 11.0.2              
@@ -15,6 +15,27 @@
 
 -- Tables Section
 -- _____________ 
+
+
+create table MOVIMENTO (
+     id integer not null, 
+     totale integer not null, 
+     direzione char(32) not null, 
+     beneficiario char(256) not null, 
+     causale char(256) not null, 
+     idSede integer not null,
+     constraint ID primary key (id),
+     foreign key (idSede) references SEDE);
+
+create table ACQUISTO (
+     id integer not null, 
+     data date not null, 
+     valore integer not null, 
+     idMovimento integer not null, 
+     idSede integer not null, 
+     constraint ID primary key (id),
+     foreign key (idMovimento) references MOVIMENTO,
+     foreign key (idSede) references SEDE);
 
 create table SEDE (
      id integer not null,
@@ -79,7 +100,9 @@ create table MATERIALE (
      descrizione char(256) not null,
      disponibilità integer not null,
      prezzo integer not null,
-     constraint ID primary key (id));
+     idSede integer not null,
+     constraint ID primary key (id)
+     foreign key (idSede) references SEDE);
 
 create table PALESTRA (
      id integer not null,
@@ -107,8 +130,10 @@ create table QUOTA (
      anno integer not null,
      costo integer not null,
      idGiocatore integer not null,
+     idMovimento integer not null,
      constraint ID primary key (id),
-     foreign key (idGiocatore) references GIOCATORE);
+     foreign key (idGiocatore) references GIOCATORE,
+     foreign key (idMovimento) references MOVIMENTO);
 
 create table SQUADRA (
      id integer not null,

@@ -53,12 +53,13 @@ SELECT ATTREZZATURA
 FROM ATTREZZATURA A
 WHERE A.idPalestra = ?;
 
--- OP13 Visualizzare le partite di una squadra
+-- OP13 Visualizzare le partite di una squadra tra due date
 SELECT PARTITA
 FROM PARTITA P
-WHERE P.idSquadra = ?;
+WHERE P.idSquadra = ?
+AND P.data BETWEEN ? AND ?;
 
--- OP14 Visualizzare i campionato giocati da una squadra negli anni (in ordine decrescente)
+-- OP14 Visualizzare i campionati giocati da una squadra negli anni (in ordine decrescente)
 SELECT PARTITA.campionato_anno, PARTITA.campionato_nome, PARTITA.campionato_livello 
 FROM PARTITA P
 WHERE P.idSquadra = ?
@@ -67,20 +68,27 @@ ORDER BY P.campionato_anno DESC;
 -- OP15 Visualizzare gli allenamenti di una squadra e in che palestra
 SELECT ALLENAMENTO, PALESTRA
 FROM ALLENAMENTO A, PALESTRA P
-WHERE A.idPalestra = P.idPalestra AND A.idSquadra = ?;
+WHERE A.idPalestra = P.idPalestra 
+AND A.idSquadra = ?;
+-- alternativa con join
+SELECT *
+FROM ALLENAMENTO 
+JOIN PALESTRA
+ON A.idPalestra = P.idPalestra;
+WHERE A.idSquadra = ?;
 
 -- OP-16 Acquistare x paia di calzini
-INSERT INTO richiesta(idMateriale, idVendita, quantita)
-SELECT MATERIALE.idMateriale, VENDITA.idVendita, VALUES(?)
-WHERE MATERIALE.disponibilita > ?;
 -- Innanzitutto, bisogna controllare che gli oggetti desiderati siano disponibili. 
-SELECT disponibilita 
+SELECT disponibilita -- Se ritorna un valore alloa OK
 FROM MATERIALE
 WHERE idMateriale = ? 
 AND disponibilita >= ?;
--- Creo un nuovo scontrino
-INSERT INTO VENDITA (idVendita, data, costo_totale) 
-VALUES (?, GETDATE(), MATERIALE.prezzo * richiesta.quantita);
+-- Creo un Movimento
+INSERT INTO MOVIMENTO (id, data, totale, direzione, beneficiario, causale, idSede)
+VALUES (?, GETDATE(), ?, ?, ?, ?, ?);
+-- Creo un nuovo acquisto
+INSERT INTO ACQUISTO (id, valore, idMovimento, idSede) 
+VALUES (?, ?, ?, ?);
 -- A questo punto bisogna diminuire la quantità dell’oggetto. 
 UPDATE MATERIALE
 SET quantita = quantita - ? 
@@ -91,11 +99,36 @@ SELECT MATERIALI;
 
 -- OP18 Visualizzare numero di vendite fatte nelle varie sedi
 SELECT SEDE, COUNT(*) AS N_VENDITE
-FROM VENDITA V
-WHERE V.idSede = S.idSede
+FROM ACQUISTO A
+WHERE A.idSede = S.idSede
 GROUP BY SEDE.idSede;
 
--- OP19 Visualizzare il guadagno totale per anno di una sede
+-- OP-19 Visualizzare numero di giocatori in ogni squadra
+SELECT SQUARA, COUNT(GIOCATORE) AS Giocatori
+GROUP BY SQUADRA.idSquadra;
+
+-- OP20 Visualizzare i movimenti e il guadagno totale in un periodo di una sede
+SELECT *
+FROM MOVIMENTO
+AND MOVIMENTO.idSede = ?
+WHERE data BETWEEN ? AND ?
+
+SELECT(	SELECT SUM(MOVIMENTO.totale)
+		FROM MOVIMENTO
+		WHERE MOVIMENTO.direzione = "entrata"
+		AND MOVIMENTO.idSede = ?
+		AND MOVIMENTO.data BETWEEN ? ANd ?;
+		-
+		SELECT SUM(MOVIMENTO.totale)
+		FROM MOVIMENTO
+		WHERE MOVIMENTO.direzione = "uscita"
+		AND MOVIMENTO.idSede = ?
+		AND MOVIMENTO.data BETWEEN ? ANd ?;
+		);
+
+
+
+--vecchia--
 SELECT SUM(Q.costo) AS Quote, (	SELECT SUM(V.costo_totale)
 								FROM VENDITE V
                                 WHERE V.idSede = ? AND DATEPART(yyyy, V.data) = ? ) AS Vendite
@@ -104,7 +137,3 @@ WHERE QUOTA.idGiocatore = (	SELECT GIOCATORE.idGipocatore
 							FROM GIOCATORE
 							WHERE GIOCATORE.idSede = ?) AND Q.anno = ?;
 
-
--- OP-20 Visualizzare numero di giocatori in ogni squadra
-SELECT SQUARA, COUNT(GIOCATORE) AS Giocatori
-GROUP BY SQUADRA.idSquadra;

@@ -63,7 +63,7 @@ def edit():
             print(f"update { table } set { col } = '{ val[0] }' where id = { record_id };")
             db_cursor.execute(f"update { table } set { col } = '{ val[0] }' where id = { record_id };")
         db_conn.commit()
-        return Response(status = 200)
+        return redirect('/', 200)
 
 @app.route('/players')
 def players_list():
@@ -190,9 +190,7 @@ def add_coach():
 def teams():
     db_connection = get_db()
     db_cursor = db_connection.cursor()
-
-    # TODO: come faccio la query per le squadre? Ne faccio una per squadra?
-    db_cursor.execute()
+   
     return render_template('teams.html')
 
 @app.route('/create-team', methods=['GET', 'POST'])
@@ -246,6 +244,35 @@ def product_warehouse():
         rows=records, \
         )
 
-@app.route('/record-sale')
+@app.route('/record-sale', methods=['GET', 'POST'])
 def record_sale():
-    return render_template('record-sale.html')
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    if request.method == 'GET':
+        cols = get_cols(db_cursor, 'materiale')
+        records = db_cursor.execute(f"select * from materiale").fetchall()
+        BRANCHES = get_branches(db_cursor)
+
+        return render_template('record-sale.html', \
+            page_title='Registra vendita',
+            table='materiale',
+            cols=cols, \
+            rows=records, \
+            branches=BRANCHES
+            ) 
+
+    if request.method == 'POST':
+        sede = request.form['sede']
+        for prodotto, quantita in request.form:
+            if not string_is_int(prodotto):
+                continue;
+            id_prodotto = int(prodotto)
+            id_quantita = int(quantita)
+
+
+        return Response(status=200)
+
+
+
+

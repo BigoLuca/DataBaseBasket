@@ -79,7 +79,7 @@ WHERE A.idSquadra = ?;
 
 -- OP-16 Acquistare x paia di calzini
 -- Innanzitutto, bisogna controllare che gli oggetti desiderati siano disponibili. 
-SELECT disponibilita -- Se ritorna un valore alloa OK
+SELECT MATERIALE.id -- Se ritorna un valore allra OK, sarà id da inserire in prodotto venduto
 FROM MATERIALE
 WHERE idMateriale = ? 
 AND disponibilita >= ?;
@@ -87,8 +87,11 @@ AND disponibilita >= ?;
 INSERT INTO MOVIMENTO (id, data, totale, direzione, beneficiario, causale, idSede)
 VALUES (?, GETDATE(), ?, ?, ?, ?, ?);
 -- Creo un nuovo acquisto
-INSERT INTO ACQUISTO (id, valore, idMovimento, idSede) 
+INSERT INTO VENDITA (id, idMovimento, idSede) 
 VALUES (?, ?, ?, ?);
+--creo record del prodoto venduto
+INSERT INTO PRODOTTO_VENDUTO(id, id_vendita, id_prodotto, quantità)
+VALUES (?, ?, ?, ?) --id prodotto è quello dell aprima query
 -- A questo punto bisogna diminuire la quantità dell’oggetto. 
 UPDATE MATERIALE
 SET quantita = quantita - ? 

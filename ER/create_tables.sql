@@ -28,14 +28,22 @@ create table MOVIMENTO (
      constraint ID primary key (id),
      foreign key (idSede) references SEDE);
 
-create table ACQUISTO (
-     id integer not null, 
-     valore real not null, 
+create table VENDITA (
+     id integer not null,
      idMovimento integer not null, 
      idSede integer not null, 
      constraint ID primary key (id),
      foreign key (idMovimento) references MOVIMENTO,
      foreign key (idSede) references SEDE);
+
+create table PRODOTTO_VENDUTO (
+     id integer not null,
+     id_vendita integer not null,
+     id_prodotto integer not null,
+     quantita integer not null,
+     constraint id primary key (id),
+     foreign key (id_vendita) references VENDITA,
+     foreign key (id_prodotto) references MATERIALE);
 
 create table SEDE (
      id integer not null,
@@ -155,18 +163,6 @@ create table STATISTICA_GIOCATORE (
      constraint ID primary key (id),
      foreign key (idPartita) references PARTITA,
      foreign key (idGiocatore) references GIOCATORE);
-
-create table VENDITA (
-     id integer not null,
-     data date not null,
-     costo_totale integer not null,
-     quantita integer not null,
-     idMateriale integer not null,
-     idSede integer not null,
-     constraint ID primary key (id),
-     foreign key (idMateriale) references MATERIALE,
-     foreign key (idSede) references SEDE);
-
 
 create table appartiene (
      id integer primary key not null,

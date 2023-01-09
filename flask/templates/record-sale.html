@@ -33,23 +33,47 @@
 	</style>
 </head>
 <body>
-	<h1>Registra pagamento quota</h1>
+	<h1>{{ page_title }}</h1>
 	<form method=POST>
-		<label for="giocatore">Giocatore</label>
-		<input list="giocatori" id="giocatore" name="giocatore" placeholder="type here..." />
-		<datalist id="giocatori">
-			{% for id, nome, cognome, cf in giocatori %}
-				<option value="{{ id }}">{{ nome }} {{ cognome }} {{ cf }}</option>
+		<table>
+			<thead>
+				<tr>
+					{% for c in cols %}
+						<th>{{ c }}</th>
+					{% endfor %}
+						<th>Quantità</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for r in rows %}
+					<tr>
+						{% for val in r %}
+							<td>{{ val }}</td>
+						{% endfor %}
+						<td><input type="number" id="quantita" value="" placeholder="0"/></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<label for="branch-selector">Seleziona una sede</label>
+		<select style="margin-top: 8px; margin-bottom: 8px;" name="sede" id="branch-selector" required>
+			<option value="">-- Scegli una sede --</option>
+			{% for id, nome in branches %}
+				<option value="{{ id }}">{{ nome }}</option>
 			{% endfor %}
-		</datalist>
-		<label for="importo">Importo</label>
-		<div style="display: flex; flex-direction: row; align-items:baseline;e;">
-			<input type="number" id="importo" name="importo">
-			<span>€</span>
-		</div>
-		<label for="data">Giorno</label>
-		<input type="date" name="data" id="data">
-		<button type="submit">Registra</button>
+		</select>	
+		<input type="number" name="totale" hidden>
+		<button type="submit">Registra</button>	
 	</form>
 </body>
+<script type="text/javascript">
+	let rows = document.querySelectorAll('tbody tr');
+	for (let i = 0; i < rows.length; i++) {		
+		let product_id = rows[i].children[0].innerText;
+		let len = rows[i].childElementCount;
+		let input_element = rows[i].children[len - 1].children[0];
+
+		input_element.setAttribute("name", product_id);
+	}
+</script>
 </html>

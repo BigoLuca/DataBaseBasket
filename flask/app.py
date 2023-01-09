@@ -74,7 +74,6 @@ def players_list():
     QUERY = f'select * from giocatore'
     PAGE_TITLE = 'Giocatori'
     BRANCHES = db_cursor.execute('select id, nome from sede').fetchall()
-    # print(BRANCHES)
 
     if 'sede' in request.args:
         SEDE = str(request.args['sede'])
@@ -133,7 +132,6 @@ def record_fee_payment():
         importo = request.form['importo']
         data = request.form['data']
         db_cursor.execute(f'insert into quota (id_giocatore, importo, data) values ({ id_giocatore }, { importo }, { data })')
-        # TODO registra movimento
         db_connection.commit()
         return Response(status=200)
 
@@ -191,7 +189,7 @@ def teams():
     db_connection = get_db()
     db_cursor = db_connection.cursor()
    
-    return render_template('teams.html')
+    return render_template('view-table.html')
 
 @app.route('/create-team', methods=['GET', 'POST'])
 def create_team():
@@ -269,10 +267,4 @@ def record_sale():
                 continue;
             id_prodotto = int(prodotto)
             id_quantita = int(quantita)
-
-
         return Response(status=200)
-
-
-
-

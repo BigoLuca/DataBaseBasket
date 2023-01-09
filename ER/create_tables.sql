@@ -20,7 +20,7 @@
 create table MOVIMENTO (
      id integer not null, 
      data date not null,
-     totale integer not null, 
+     totale real not null, 
      direzione char(32) not null, 
      beneficiario char(256) not null, 
      causale char(256) not null, 
@@ -30,7 +30,7 @@ create table MOVIMENTO (
 
 create table ACQUISTO (
      id integer not null, 
-     valore integer not null, 
+     valore real not null, 
      idMovimento integer not null, 
      idSede integer not null, 
      constraint ID primary key (id),

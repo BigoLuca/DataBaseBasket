@@ -117,23 +117,13 @@ SELECT(	SELECT SUM(MOVIMENTO.totale)
 		FROM MOVIMENTO
 		WHERE MOVIMENTO.direzione = "entrata"
 		AND MOVIMENTO.idSede = ?
-		AND MOVIMENTO.data BETWEEN ? ANd ?;
+		AND MOVIMENTO.data BETWEEN ? ANd ?
 		-
 		SELECT SUM(MOVIMENTO.totale)
 		FROM MOVIMENTO
 		WHERE MOVIMENTO.direzione = "uscita"
 		AND MOVIMENTO.idSede = ?
-		AND MOVIMENTO.data BETWEEN ? ANd ?;
+		AND MOVIMENTO.data BETWEEN ? ANd ?
 		);
 
-
-
---vecchia--
-SELECT SUM(Q.costo) AS Quote, (	SELECT SUM(V.costo_totale)
-								FROM VENDITE V
-                                WHERE V.idSede = ? AND DATEPART(yyyy, V.data) = ? ) AS Vendite
-FROM QUOTA Q
-WHERE QUOTA.idGiocatore = (	SELECT GIOCATORE.idGipocatore
-							FROM GIOCATORE
-							WHERE GIOCATORE.idSede = ?) AND Q.anno = ?;
 

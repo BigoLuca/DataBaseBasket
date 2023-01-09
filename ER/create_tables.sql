@@ -98,7 +98,7 @@ create table GIOCATORE (
 create table MATERIALE (
      id integer not null,
      descrizione char(256) not null,
-     disponibilità integer not null,
+     disponibilita integer not null,
      prezzo integer not null,
      idSede integer not null,
      constraint ID primary key (id)

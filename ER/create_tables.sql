@@ -19,6 +19,7 @@
 
 create table MOVIMENTO (
      id integer not null, 
+     data date not null,
      totale integer not null, 
      direzione char(32) not null, 
      beneficiario char(256) not null, 
@@ -29,7 +30,6 @@ create table MOVIMENTO (
 
 create table ACQUISTO (
      id integer not null, 
-     data date not null, 
      valore integer not null, 
      idMovimento integer not null, 
      idSede integer not null, 

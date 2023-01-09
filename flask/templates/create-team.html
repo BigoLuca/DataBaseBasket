@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style>
+		html {
+			font-family: monospace;
+			font-size: 16px;
+		}
+		table, td, th {
+			border: 1px solid black;
+			border-collapse: collapse;
+			padding: 4px;
+		}
+		input {
+			display: block;
+			margin: 4px;
+			margin-left: 12px;
+			margin-bottom: 16px;
+		}
+		select {
+			margin: 8px;
+			margin-bottom: 16px;
+			display: block;
+		}
+		button {
+			margin: 8px;
+			margin-bottom: 16px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<h1>Componi nuova squadra</h1>
+	<form method=POST>
+		<label for="nome">Nome</label>
+		<input type="text" name="nome" id="nome" required>
+
+		<label for="annata">Annata</label>
+		<input type="number" name="annata" id="annata" required>
+
+		<label for="sede">Sede</label>
+		<select name="sede" id="branch-selector" required>
+			<option value="">-- Scegli una sede --</option>
+			{% for id, nome in branches %}
+				<option value="{{ id }}">{{ nome }}</option>
+			{% endfor %}
+		</select>
+
+		<label for="allenatore">Allenatore</label>
+		<input list="allenatori" name="allenatore" id="allenatore" placeholder="scrivi qui..."/>
+		<datalist id=allenatori>
+			{% for id, nome, cognome, cf in allenatori %}			
+				<option value="{{ id }}">{{ nome }} {{ cognome }} {{ cf }}</option>
+			{% endfor %}
+		</datalist>
+
+		{% for i in range(10) %}
+			<label for="giocatore">Giocatore {{ i+1 }}</label>
+			<input list="giocatori" id="giocatore" name="giocatore" placeholder="scrivi qui..."/>
+			<datalist id="giocatori">
+				{% for id, nome, cognome, cf in giocatori %}
+					<option value="{{ id }}">{{ nome }} {{ cognome }} {{ cf }}</option>
+				{% endfor %}
+			</datalist>
+		{% endfor %}
+		<button type="submit">Registra</button>
+	</form>
+</body>
+</html>

@@ -11,6 +11,9 @@ def string_is_int(s):
     except ValueError:
         return False
 
+def get_branches(cursor):
+    return cursor.execute('select id, nome from sede').fetchall()
+
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
@@ -71,7 +74,7 @@ def players_list():
     QUERY = f'select * from giocatore'
     PAGE_TITLE = 'Giocatori'
     BRANCHES = db_cursor.execute('select id, nome from sede').fetchall()
-    print(BRANCHES)
+    # print(BRANCHES)
 
     if 'sede' in request.args:
         SEDE = str(request.args['sede'])
@@ -89,33 +92,159 @@ def players_list():
         show_branch_selector = True, \
         branches = BRANCHES)
 
-@app.route('/add-player')
+@app.route('/add-player', methods=['GET', 'POST'])
 def add_player():
-    return render_template('add-player.html')
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
 
-@app.route('/record-fee-payment')
+    if request.method == 'GET':
+        BRANCHES = get_branches(db_cursor)
+        return render_template('add-player.html', branches=BRANCHES)
+
+    REQUIRED_FIELDS = ['nome', 'cognome', 'cf', 'data-nascita', 'numero-maglia', 'telefono', 'email', 'sede']
+    for f in REQUIRED_FIELDS:
+        if f not in request.form:
+            print(f'/add-player: Incomplete data submitted, { f } is missing')
+            return Response(status=422)
+
+    form = request.form
+    query = f"insert into giocatore (nMaglia, CF, nome, cognome, 'data_nascita', telefono, email, idSede) values ({ form['numero-maglia'] }, '{ form['cf'] }', '{ form['nome'] }', '{ form['cognome'] }', date('{ form['data-nascita'] }'), { form['telefono'] }, '{ form['email']}', { form['sede'] })"
+    res = db_cursor.execute(query)
+    db_connection.commit()
+    return redirect('/players', 200)
+
+@app.route('/record-fee-payment', methods=['GET', 'POST'])
 def record_fee_payment():
-    return render_template('record-fee-payment.html')
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    if request.method == 'GET':
+        giocatori = db_cursor.execute('select id, nome, cognome, cf from giocatore').fetchall()
+        return render_template('record-fee-payment.html', giocatori=giocatori)
+
+    if request.method == 'POST':
+        REQUIRED_FIELDS = ['giocatore', 'importo', 'data']
+        for f in REQUIRED_FIELDS:
+            if f not in request.form:
+                print('Incomplete data in request')
+                return Respons(status=422)
+
+        id_giocatore = request.form['giocatore']
+        importo = request.form['importo']
+        data = request.form['data']
+        db_cursor.execute(f'insert into quota (id_giocatore, importo, data) values ({ id_giocatore }, { importo }, { data })')
+        # TODO registra movimento
+        db_connection.commit()
+        return Response(status=200)
 
 @app.route('/coaches')
-def coaches():
-    return render_template('coaches.html')
+def coaches():    
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
 
-@app.route('/add-coach')
+    SEDE = None
+    QUERY = f'select * from allenatore'
+    PAGE_TITLE = 'Allenatori'
+    BRANCHES = db_cursor.execute('select id, nome from sede').fetchall()
+
+    if 'sede' in request.args:
+        SEDE = str(request.args['sede'])
+        if string_is_int(SEDE):
+            QUERY = f'select * from allenatore where idSede = { SEDE }'
+            nome_sede = db_cursor.execute(f'select nome from sede where id = { SEDE }').fetchone()[0]
+            PAGE_TITLE = f'Giocatori - { nome_sede }'
+
+    cols = get_cols(db_cursor, 'allenatore')
+    records = db_cursor.execute(QUERY).fetchall()
+
+    return render_template('view-table.html', \
+        page_title='allenatori',
+        table='allenatore',
+        cols=cols, \
+        rows=records, \
+        show_branch_selector=True, \
+        branches=BRANCHES)
+
+@app.route('/add-coach', methods=['GET', 'POST'])
 def add_coach():
-    return render_template('add-coach.html')
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    if request.method == 'GET':
+        BRANCHES = get_branches(db_cursor)
+        return render_template('add-coach.html', branches=BRANCHES)
+
+    REQUIRED_FIELDS = ['nome', 'cognome', 'cf', 'data-nascita', 'telefono', 'email', 'sede']
+    for f in REQUIRED_FIELDS:
+        if f not in request.form:
+            print(f'/add-coach: Incomplete data submitted, { f } is missing')
+            return Response(status=422)
+
+    form = request.form
+    query = f"insert into allenatore (CF, nome, cognome, 'data_nascita', telefono, email, idSede) values ('{ form['cf'] }', '{ form['nome'] }', '{ form['cognome'] }', date('{ form['data-nascita'] }'), { form['telefono'] }, '{ form['email']}', { form['sede'] })"
+    res = db_cursor.execute(query)
+    db_connection.commit()
+    return redirect('/add-coach.html', 200)
 
 @app.route('/teams')
 def teams():
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    # TODO: come faccio la query per le squadre? Ne faccio una per squadra?
+    db_cursor.execute()
     return render_template('teams.html')
 
-@app.route('/create-team')
+@app.route('/create-team', methods=['GET', 'POST'])
 def create_team():
-    return render_template('create-team.html')
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    if request.method == 'GET':
+        BRANCHES = get_branches(db_cursor)
+        giocatori = db_cursor.execute('select id, nome, cognome, cf from giocatore').fetchall()
+        return render_template('create-team.html', \
+            branches=BRANCHES, \
+            giocatori=giocatori)
+
+    if request.method == 'POST':
+        REQUIRED_FIELDS = ['nome', 'annata', 'giocatore', 'allenatore', 'sede']
+        for f in REQUIRED_FIELDS:
+            if f not in request.form:
+                print(f'/create-team: Incomplete data submitted, { f } is missing')
+                return Response(status=422)
+
+        print(request.form)
+        nome_squadra = request.form['nome']
+        annata_squadra = request.form['annata']
+        id_allenatore = request.form['allenatore']
+        id_sede = request.form['sede']
+
+        db_cursor.execute(f"insert into squadra ('nome', 'annata') values ('{ nome_squadra }', '{ annata_squadra }')")
+        id_squadra = db_cursor.execute(f"select id from squadra where nome = '{ nome_squadra }'").fetchone()[0] 
+        db_cursor.execute(f"insert into gestisce ('idAllenatore', 'idSquadra') values ('{id_allenatore}', '{id_squadra}')")
+
+        for id_giocatore in request.form.getlist('giocatore'):
+            if id_giocatore == '':
+                continue
+            db_cursor.execute(f"insert into appartiene ('idSquadra', 'idGiocatore') values ('{ id_squadra }', '{ id_giocatore }')")
+
+        db_connection.commit()
+        return redirect('/teams', 200)
 
 @app.route('/product-warehouse')
-def product_warehouse():
-    return render_template('product-warehouse.html')
+def product_warehouse():    
+    db_connection = get_db()
+    db_cursor = db_connection.cursor()
+
+    cols = get_cols(db_cursor, 'materiale')
+    records = db_cursor.execute(f"select * from materiale").fetchall()
+    return render_template('view-table.html', \
+        page_title='magazzino',
+        table='materiale',
+        cols=cols, \
+        rows=records, \
+        )
 
 @app.route('/record-sale')
 def record_sale():

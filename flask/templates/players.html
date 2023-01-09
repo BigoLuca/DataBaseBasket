@@ -26,7 +26,9 @@
 	{% else %}
 		<h1>Basket Imola International</h1>
 	{% endif %}
-	{% include 'branch-selector.html' %}
+	{% if show_branch_selector == True %}
+		{% include 'branch-selector.html' %}
+	{% endif %}
 	<thead>
 		<tr>
 			{% for c in cols %}

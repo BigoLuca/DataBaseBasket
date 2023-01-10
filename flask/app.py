@@ -21,6 +21,7 @@ def get_db():
     return db    
 
 def get_cols(db_cursor, table):
+    print(f'pragma table_info({table})')
     cols = db_cursor.execute(f'pragma table_info({table})').fetchall()
     cols = [ c[1] for c in cols ]
     return cols
@@ -85,6 +86,7 @@ def players_list():
     cols = get_cols(db_cursor, 'giocatore')
     players = db_cursor.execute(QUERY).fetchall()
     return render_template('view-table.html', \
+        table='giocatore', \
         page_title = PAGE_TITLE, \
         cols = cols, \
         rows = players, \
